@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
 from pages.BasePage import BasePage
-import requests
 
 class FirstTaskPage(BasePage):
 
@@ -10,9 +9,6 @@ class FirstTaskPage(BasePage):
     LOCATOR_FIRST_TASK_LINK_SEARCH = (
         By.XPATH, 
         "//a[@class='tensor_ru-link tensor_ru-Index__link' and text()='Подробнее' and @href='/about']")
-    LOCATOR_FIRST_TASK_IMG_SEARCH = (
-        By.XPATH, 
-        "//div[@class='tensor_ru-About__block3-image-filter']//preceding-sibling::img")
 
     def FindFirstPhrase(self):
         self.get("https://tensor.ru/")
@@ -30,9 +26,3 @@ class FirstTaskPage(BasePage):
         self.wait()
         url = self.url()
         return [new, another_link, url]
-    
-    def SizeOfPictures(self):
-        self.get("https://tensor.ru/about")
-        self.wait()
-        data = self.find_list(self.LOCATOR_FIRST_TASK_IMG_SEARCH)
-        return data

@@ -1,4 +1,6 @@
-task1/.pytest_cache/
+task1/__pycache__
+task1/__pycache__
+task1/*/.pytest_cache
+task1/*/__pycache__
 .pytest_cache
 env
-task1/__pycache__

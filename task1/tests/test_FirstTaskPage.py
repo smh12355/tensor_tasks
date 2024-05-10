@@ -1,8 +1,10 @@
 from pages.FirstTaskPage import FirstTaskPage
+import logging
 
 def test_first_task_first(browser):
     firsttaskpage = FirstTaskPage(browser)
-    assert firsttaskpage.FindFirstPhrase(), 'Блока "Сила в людях" нету в html коде'
+    # assert firsttaskpage.FindFirstPhrase(), 'Блока "Сила в людях" нету в html коде'
+    assert 0 == 1
 
 def test_first_task_second(browser):
     firsttaskpage = FirstTaskPage(browser)

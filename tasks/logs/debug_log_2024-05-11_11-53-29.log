@@ -1,8 +1,0 @@
-2024-05-11 11:53:31,106 - ERROR - Test 'tests/test_FirstTaskPage.py::test_first_task_first' failed: browser = <selenium.webdriver.chrome.webdriver.WebDriver (session="db53642ae072921d25b05262e49640f1")>
-
->   ???
-E   assert 0 == 1
-
-C:\Users\krik6\Desktop\test123\tensor_tasks\task1\tests\test_FirstTaskPage.py:7: AssertionError
-2024-05-11 11:53:40,552 - INFO - Test 'tests/test_FirstTaskPage.py::test_first_task_second' passed
-2024-05-11 11:53:49,115 - INFO - Test 'tests/test_FirstTaskPageThird.py::test_first_task_third' passed

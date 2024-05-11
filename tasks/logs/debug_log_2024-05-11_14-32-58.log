@@ -1,0 +1,22 @@
+2024-05-11 14:33:01,795 - ERROR - Test 'tests/test_SecondTaskPage.py::test_RegionCheck' failed: browser = <selenium.webdriver.chrome.webdriver.WebDriver (session="c29e6a7780c67edfd6356a3e8f2fe01f")>
+setup_logging = <Logger tests.conftest (DEBUG)>
+
+    def test_RegionCheck(browser, setup_logging):
+        secondtaskpage = SecondTaskPage(browser)
+>       region, list_of_orgs = secondtaskpage.RegionCheck()
+
+tests\test_SecondTaskPage.py:5: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <pages.SecondTaskPage.SecondTaskPage object at 0x0000026988A68710>
+
+    def RegionCheck(self):
+        self.get("https://sbis.ru/contacts")
+        # region = self.find(self.LOCATOR_SECOND_TASK_REGION).text
+        # list_of_orgs = self.find_list(self.LOCATOR_SECOND_TASK_LIST_OF_ORGS)
+        # region = self.waiter.until(EC.presence_of_element_located(self.LOCATOR_SECOND_TASK_REGION)).text
+        # list_of_orgs = self.waiter.until(EC.presence_of_all_elements_located(self.LOCATOR_SECOND_TASK_LIST_OF_ORGS))
+>       region = self.waiter_until(self.LOCATOR_SECOND_TASK_REGION)
+E       AttributeError: 'SecondTaskPage' object has no attribute 'waiter_until'
+
+pages\SecondTaskPage.py:27: AttributeError

@@ -1,0 +1,10 @@
+2024-05-11 14:09:21,699 - INFO - Test 'tests/test_SecondTaskPage.py::test_RegionCheck' passed
+2024-05-11 14:09:30,546 - ERROR - Test 'tests/test_SecondTaskPage.py::test_RegionsSwitchCheck' failed: browser = <selenium.webdriver.chrome.webdriver.WebDriver (session="4418fc8eb5dcd2912e841889cf827e2f")>
+setup_logging = <Logger tests.conftest (DEBUG)>
+
+    def test_RegionsSwitchCheck(browser, setup_logging):
+        secondtaskpage = SecondTaskPage(browser)
+>       region, list_of_orgs, url, title_of_new_page, new_region, new_list_of_orgs = secondtaskpage.RegionCheck()
+E       ValueError: not enough values to unpack (expected 6, got 2)
+
+tests\test_SecondTaskPage.py:12: ValueError

@@ -1,0 +1,18 @@
+2024-05-11 15:31:43,217 - INFO - Test 'tests/test_FirstTaskPage.py::test_first_task_first' passed
+2024-05-11 15:31:56,211 - ERROR - the link redirects to a third-party resource
+2024-05-11 15:31:56,250 - ERROR - Test 'tests/test_FirstTaskPage.py::test_first_task_second' failed: browser = <selenium.webdriver.chrome.webdriver.WebDriver (session="1ad030271e479c9b3b04caf280b63d86")>
+setup_logging = <Logger tests.conftest (DEBUG)>
+
+    def test_first_task_second(browser, setup_logging):
+        firsttaskpage = FirstTaskPage(browser)
+        output = firsttaskpage.TextLinkOpen()
+        # assert output[0] != None, setup_logging.error("link is invalid")
+>       assert output[0] == output[1], setup_logging.error("the link redirects to a third-party resource")
+E       AssertionError: None
+E       assert 'https://tensor.ru/about' == 'https://tensor.ru/'
+E         
+E         - https://tensor.ru/
+E         + https://tensor.ru/about
+E         ?                   +++++
+
+tests\test_FirstTaskPage.py:13: AssertionError

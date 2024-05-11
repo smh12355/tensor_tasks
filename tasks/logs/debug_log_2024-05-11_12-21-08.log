@@ -1,0 +1,15 @@
+2024-05-11 12:21:09,802 - ERROR - some mistake here
+2024-05-11 12:21:09,854 - ERROR - Test 'tests/test_FirstTaskPage.py::test_first_task_first' failed: browser = <selenium.webdriver.chrome.webdriver.WebDriver (session="fe3efc1f87bf20021469b8fa8a964e87")>
+setup_logging = <Logger tests.conftest (DEBUG)>
+
+    def test_first_task_first(browser, setup_logging):
+        firsttaskpage = FirstTaskPage(browser)
+        # assert firsttaskpage.FindFirstPhrase(), 'Блока "Сила в людях" нету в html коде'
+>       assert 0 == 1, setup_logging.error("some mistake here")
+E       AssertionError: None
+E       assert 0 == 1
+
+tests\test_FirstTaskPage.py:7: AssertionError
+2024-05-11 12:21:15,015 - INFO - Test 'tests/test_FirstTaskPage.py::test_first_task_second' passed
+2024-05-11 12:21:23,633 - INFO - Test 'tests/test_FirstTaskPageThird.py::test_first_task_third' passed
+2024-05-11 12:21:32,555 - INFO - Test 'tests/test_SecondTaskPage.py::test_RegionCheck' passed

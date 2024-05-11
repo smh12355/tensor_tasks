@@ -1,0 +1,17 @@
+2024-05-11 11:54:08,086 - ERROR - Test 'tests/test_FirstTaskPage.py::test_first_task_first' failed: browser = <selenium.webdriver.chrome.webdriver.WebDriver (session="e6afe066ea5626279fecf271ba65f364")>
+
+>   ???
+E   assert 0 == 1
+
+C:\Users\krik6\Desktop\test123\tensor_tasks\task1\tests\test_FirstTaskPage.py:7: AssertionError
+2024-05-11 11:54:16,968 - INFO - Test 'tests/test_FirstTaskPage.py::test_first_task_second' passed
+2024-05-11 11:54:25,497 - INFO - Test 'tests/test_FirstTaskPageThird.py::test_first_task_third' passed
+2024-05-11 11:54:34,343 - ERROR - Test 'tests/test_SecondTaskPage.py::test_RegionCheck' failed: browser = <selenium.webdriver.chrome.webdriver.WebDriver (session="8d9a9e7c2c6cac5cc0eb8ff8d08de28f")>
+setup_logging = <Logger tests.conftest (DEBUG)>
+
+    def test_RegionCheck(browser,setup_logging):
+        secondtaskpage = SecondTaskPage(browser)
+>       region, list_of_orgs = secondtaskpage.RegionCheck()
+E       ValueError: too many values to unpack (expected 2)
+
+tests\test_SecondTaskPage.py:5: ValueError

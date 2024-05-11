@@ -1,0 +1,2 @@
+2024-05-11 16:49:11,934 - INFO - Test 'tests/test_FirstTaskPage.py::test_first_task_first' passed
+2024-05-11 16:49:28,864 - INFO - Test 'tests/test_FirstTaskPage.py::test_first_task_second' passed

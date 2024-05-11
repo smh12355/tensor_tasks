@@ -1,0 +1,278 @@
+2024-05-11 12:08:06,839 - ERROR - Test 'tests/test_FirstTaskPage.py::test_first_task_first' failed: browser = <selenium.webdriver.chrome.webdriver.WebDriver (session="3e1b64958f4d1b03c7110da6ba1e9bcf")>
+
+>   ???
+E   assert 0 == 1
+
+C:\Users\krik6\Desktop\test123\tensor_tasks\task1\tests\test_FirstTaskPage.py:7: AssertionError
+2024-05-11 12:08:15,546 - ERROR - Test 'tests/test_FirstTaskPage.py::test_first_task_second' failed: browser = <selenium.webdriver.chrome.webdriver.WebDriver (session="78a2e749d20b0bc8a956be1e623d8cc7")>
+
+>   ???
+
+C:\Users\krik6\Desktop\test123\tensor_tasks\task1\tests\test_FirstTaskPage.py:11: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+pages\FirstTaskPage.py:23: in TextLinkOpen
+    another_link = link.get_attribute('href')
+..\env\Lib\site-packages\selenium\webdriver\remote\webelement.py:178: in get_attribute
+    attribute_value = self.parent.execute_script(
+..\env\Lib\site-packages\selenium\webdriver\remote\webdriver.py:407: in execute_script
+    return self.execute(command, {"script": script, "args": converted_args})["value"]
+..\env\Lib\site-packages\selenium\webdriver\remote\webdriver.py:347: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x0000024AC519B390>
+response = {'status': 404, 'value': '{"value":{"error":"stale element reference","message":"stale element reference: stale elemen...07FF739481904]\\n\\tBaseThreadInitThunk [0x00007FFD3DEC257D+29]\\n\\tRtlUserThreadStart [0x00007FFD3E72AA48+40]\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -> None:
+        """Checks that a JSON response from the WebDriver does not have an
+        error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        """
+        status = response.get("status", None)
+        if not status or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen: str = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get("value", None)
+            if value_json and isinstance(value_json, str):
+                import json
+    
+                try:
+                    value = json.loads(value_json)
+                    if len(value) == 1:
+                        value = value["value"]
+                    status = value.get("error", None)
+                    if not status:
+                        status = value.get("status", ErrorCode.UNKNOWN_ERROR)
+                        message = value.get("value") or value.get("message")
+                        if not isinstance(message, str):
+                            value = message
+                            message = message.get("message")
+                    else:
+                        message = value.get("message", None)
+                except ValueError:
+                    pass
+    
+        exception_class: Type[WebDriverException]
+        e = ErrorCode()
+        error_codes = [item for item in dir(e) if not item.startswith("__")]
+        for error_code in error_codes:
+            error_info = getattr(ErrorCode, error_code)
+            if isinstance(error_info, list) and status in error_info:
+                exception_class = getattr(ExceptionMapping, error_code, WebDriverException)
+                break
+        else:
+            exception_class = WebDriverException
+    
+        if not value:
+            value = response["value"]
+        if isinstance(value, str):
+            raise exception_class(value)
+        if message == "" and "message" in value:
+            message = value["message"]
+    
+        screen = None  # type: ignore[assignment]
+        if "screen" in value:
+            screen = value["screen"]
+    
+        stacktrace = None
+        st_value = value.get("stackTrace") or value.get("stacktrace")
+        if st_value:
+            if isinstance(st_value, str):
+                stacktrace = st_value.split("\n")
+            else:
+                stacktrace = []
+                try:
+                    for frame in st_value:
+                        line = frame.get("lineNumber", "")
+                        file = frame.get("fileName", "<anonymous>")
+                        if line:
+                            file = f"{file}:{line}"
+                        meth = frame.get("methodName", "<anonymous>")
+                        if "className" in frame:
+                            meth = f"{frame['className']}.{meth}"
+                        msg = "    at %s (%s)"
+                        msg = msg % (meth, file)
+                        stacktrace.append(msg)
+                except TypeError:
+                    pass
+        if exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if "data" in value:
+                alert_text = value["data"].get("text")
+            elif "alert" in value:
+                alert_text = value["alert"].get("text")
+            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here
+>       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: stale element not found in the current frame
+E         (Session info: chrome=124.0.6367.158); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+E       Stacktrace:
+E       	GetHandleVerifier [0x00007FF739511562+60802]
+E       	(No symbol) [0x00007FF73948AC62]
+E       	(No symbol) [0x00007FF739347CE4]
+E       	(No symbol) [0x00007FF73934DE26]
+E       	(No symbol) [0x00007FF7393504F6]
+E       	(No symbol) [0x00007FF7393DAEC3]
+E       	(No symbol) [0x00007FF7393BAB7A]
+E       	(No symbol) [0x00007FF7393DA224]
+E       	(No symbol) [0x00007FF7393BA923]
+E       	(No symbol) [0x00007FF739388FEC]
+E       	(No symbol) [0x00007FF739389C21]
+E       	GetHandleVerifier [0x00007FF7398141FD+3217949]
+E       	GetHandleVerifier [0x00007FF739856197+3488183]
+E       	GetHandleVerifier [0x00007FF73984F11F+3459391]
+E       	GetHandleVerifier [0x00007FF7395CB926+823622]
+E       	(No symbol) [0x00007FF739495FFF]
+E       	(No symbol) [0x00007FF739490F24]
+E       	(No symbol) [0x00007FF7394910B2]
+E       	(No symbol) [0x00007FF739481904]
+E       	BaseThreadInitThunk [0x00007FFD3DEC257D+29]
+E       	RtlUserThreadStart [0x00007FFD3E72AA48+40]
+
+..\env\Lib\site-packages\selenium\webdriver\remote\errorhandler.py:229: StaleElementReferenceException
+2024-05-11 12:08:20,197 - INFO - Test 'tests/test_FirstTaskPageThird.py::test_first_task_third' passed
+2024-05-11 12:08:49,205 - ERROR - Test 'tests/test_SecondTaskPage.py::test_RegionCheck' failed: browser = <selenium.webdriver.chrome.webdriver.WebDriver (session="093e4d0877f99f2d503c9ae66ca85f9e")>
+setup_logging = <Logger tests.conftest (DEBUG)>
+
+    def test_RegionCheck(browser,setup_logging):
+        secondtaskpage = SecondTaskPage(browser)
+>       region, list_of_orgs = secondtaskpage.RegionCheck()
+
+tests\test_SecondTaskPage.py:5: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+pages\SecondTaskPage.py:17: in RegionCheck
+    list_of_orgs = self.find(self.LOCATOR_SECOND_TASK_LIST_OF_ORGS)
+pages\BasePage.py:12: in find
+    return self.driver.find_element(*locator)
+..\env\Lib\site-packages\selenium\webdriver\remote\webdriver.py:741: in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+..\env\Lib\site-packages\selenium\webdriver\remote\webdriver.py:347: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x0000024AC547FAD0>
+response = {'status': 404, 'value': '{"value":{"error":"no such element","message":"no such element: Unable to locate element: {\...07FF739481904]\\n\\tBaseThreadInitThunk [0x00007FFD3DEC257D+29]\\n\\tRtlUserThreadStart [0x00007FFD3E72AA48+40]\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -> None:
+        """Checks that a JSON response from the WebDriver does not have an
+        error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        """
+        status = response.get("status", None)
+        if not status or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen: str = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get("value", None)
+            if value_json and isinstance(value_json, str):
+                import json
+    
+                try:
+                    value = json.loads(value_json)
+                    if len(value) == 1:
+                        value = value["value"]
+                    status = value.get("error", None)
+                    if not status:
+                        status = value.get("status", ErrorCode.UNKNOWN_ERROR)
+                        message = value.get("value") or value.get("message")
+                        if not isinstance(message, str):
+                            value = message
+                            message = message.get("message")
+                    else:
+                        message = value.get("message", None)
+                except ValueError:
+                    pass
+    
+        exception_class: Type[WebDriverException]
+        e = ErrorCode()
+        error_codes = [item for item in dir(e) if not item.startswith("__")]
+        for error_code in error_codes:
+            error_info = getattr(ErrorCode, error_code)
+            if isinstance(error_info, list) and status in error_info:
+                exception_class = getattr(ExceptionMapping, error_code, WebDriverException)
+                break
+        else:
+            exception_class = WebDriverException
+    
+        if not value:
+            value = response["value"]
+        if isinstance(value, str):
+            raise exception_class(value)
+        if message == "" and "message" in value:
+            message = value["message"]
+    
+        screen = None  # type: ignore[assignment]
+        if "screen" in value:
+            screen = value["screen"]
+    
+        stacktrace = None
+        st_value = value.get("stackTrace") or value.get("stacktrace")
+        if st_value:
+            if isinstance(st_value, str):
+                stacktrace = st_value.split("\n")
+            else:
+                stacktrace = []
+                try:
+                    for frame in st_value:
+                        line = frame.get("lineNumber", "")
+                        file = frame.get("fileName", "<anonymous>")
+                        if line:
+                            file = f"{file}:{line}"
+                        meth = frame.get("methodName", "<anonymous>")
+                        if "className" in frame:
+                            meth = f"{frame['className']}.{meth}"
+                        msg = "    at %s (%s)"
+                        msg = msg % (meth, file)
+                        stacktrace.append(msg)
+                except TypeError:
+                    pass
+        if exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if "data" in value:
+                alert_text = value["data"].get("text")
+            elif "alert" in value:
+                alert_text = value["alert"].get("text")
+            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here
+>       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"css selector","selector":".ls-ListView__itemV-relative controls-ListView__itemV controls-ListView__item_default js-controls-ListView__editingTarget  controls-ListView__itemV_cursor-pointer  controls-ListView__item_showActions js-controls-ListView__measurableContainer controls-ListView__item__unmarked_default controls-ListView__item_highlightOnHover controls-hover-background-default controls-Tree__item"}
+E         (Session info: chrome=124.0.6367.158); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+E       Stacktrace:
+E       	GetHandleVerifier [0x00007FF739511562+60802]
+E       	(No symbol) [0x00007FF73948AC62]
+E       	(No symbol) [0x00007FF739347CE4]
+E       	(No symbol) [0x00007FF739396D4D]
+E       	(No symbol) [0x00007FF739396E1C]
+E       	(No symbol) [0x00007FF7393DCE37]
+E       	(No symbol) [0x00007FF7393BABBF]
+E       	(No symbol) [0x00007FF7393DA224]
+E       	(No symbol) [0x00007FF7393BA923]
+E       	(No symbol) [0x00007FF739388FEC]
+E       	(No symbol) [0x00007FF739389C21]
+E       	GetHandleVerifier [0x00007FF7398141FD+3217949]
+E       	GetHandleVerifier [0x00007FF739856197+3488183]
+E       	GetHandleVerifier [0x00007FF73984F11F+3459391]
+E       	GetHandleVerifier [0x00007FF7395CB926+823622]
+E       	(No symbol) [0x00007FF739495FFF]
+E       	(No symbol) [0x00007FF739490F24]
+E       	(No symbol) [0x00007FF7394910B2]
+E       	(No symbol) [0x00007FF739481904]
+E       	BaseThreadInitThunk [0x00007FFD3DEC257D+29]
+E       	RtlUserThreadStart [0x00007FFD3E72AA48+40]
+
+..\env\Lib\site-packages\selenium\webdriver\remote\errorhandler.py:229: NoSuchElementException

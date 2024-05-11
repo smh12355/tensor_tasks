@@ -1,0 +1,21 @@
+2024-05-11 14:33:17,048 - ERROR - Test 'tests/test_SecondTaskPage.py::test_RegionCheck' failed: browser = <selenium.webdriver.chrome.webdriver.WebDriver (session="047f04cb909cc0e6ca61ffdc01df3ba0")>
+setup_logging = <Logger tests.conftest (DEBUG)>
+
+    def test_RegionCheck(browser, setup_logging):
+        secondtaskpage = SecondTaskPage(browser)
+>       region, list_of_orgs = secondtaskpage.RegionCheck()
+
+tests\test_SecondTaskPage.py:5: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+pages\SecondTaskPage.py:27: in RegionCheck
+    region = self.waiter_until(self.LOCATOR_SECOND_TASK_REGION)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <pages.SecondTaskPage.SecondTaskPage object at 0x0000024032228410>
+locator = ('xpath', "//span[@class='sbis_ru-Region-Chooser ml-16 ml-xm-0']//preceding-sibling::span")
+
+    def waiter_until(self, locator):
+>       return self.waiter.until(EC.presence_of_element_located(*locator))
+E       TypeError: presence_of_element_located() takes 1 positional argument but 2 were given
+
+pages\BasePage.py:30: TypeError

@@ -9,6 +9,5 @@ class FirstTaskPageThird(BasePage):
 
     def SizeOfPictures(self):
         self.get("https://tensor.ru/about")
-        # data = self.find_list(self.LOCATOR_FIRST_TASK_IMG_SEARCH)
         data = self.waiter_until_list(self.LOCATOR_FIRST_TASK_IMG_SEARCH)
         return data

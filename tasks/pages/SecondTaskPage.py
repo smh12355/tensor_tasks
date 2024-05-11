@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from pages.BasePage import BasePage
-import pytest
+import time
 
 class SecondTaskPage(BasePage):
 
@@ -16,37 +16,29 @@ class SecondTaskPage(BasePage):
         "//span[@title='Камчатский край']")
     LOCATOR_NEW_PAGE_TITLE = (
         By.XPATH,
-        "//title[@class='state-1']"
+        # "//title[@class='state-1']"
+        "//title[@sid='h-6']"
     )
     def RegionCheck(self):
         self.get("https://sbis.ru/contacts")
-        # region = self.find(self.LOCATOR_SECOND_TASK_REGION).text
-        # list_of_orgs = self.find_list(self.LOCATOR_SECOND_TASK_LIST_OF_ORGS)
-        # region = self.waiter.until(EC.presence_of_element_located(self.LOCATOR_SECOND_TASK_REGION)).text
-        # list_of_orgs = self.waiter.until(EC.presence_of_all_elements_located(self.LOCATOR_SECOND_TASK_LIST_OF_ORGS))
         region = self.waiter_until(self.LOCATOR_SECOND_TASK_REGION).text
         list_of_orgs = self.waiter_until_list(self.LOCATOR_SECOND_TASK_LIST_OF_ORGS)
         return region, list_of_orgs
     
     def RegionSwitchCheck(self):
         self.get("https://sbis.ru/contacts")
-        waiter = self.wait()
-        pytest.set_trace() 
-        # region = self.find(self.LOCATOR_SECOND_TASK_REGION).text
-        # list_of_orgs = self.find_list(self.LOCATOR_SECOND_TASK_LIST_OF_ORGS)
-        region = waiter.until(EC.presence_of_element_located(self.LOCATOR_SECOND_TASK_REGION)).text
-        list_of_orgs = waiter.until(EC.presence_of_all_elements_located(self.LOCATOR_SECOND_TASK_LIST_OF_ORGS))
-        # self.find(self.LOCATOR_SECOND_TASK_REGION).click()
-        # self.find(self.LOCATOR_CLICK_ACTION).click()
-        waiter.until(EC.presence_of_element_located(self.LOCATOR_SECOND_TASK_REGION)).click()
-        waiter.until(EC.presence_of_element_located(self.LOCATOR_CLICK_ACTION)).click()
+        region = self.waiter_until(self.LOCATOR_SECOND_TASK_REGION).text
+        print(self.waiter_until(self.LOCATOR_NEW_PAGE_TITLE).text)
+        print(region)
+        list_of_orgs = self.waiter_until_list(self.LOCATOR_SECOND_TASK_LIST_OF_ORGS)[0].get_attribute("textContent")
+        pre_url = self.url()
+        self.action_click(self.waiter_until(self.LOCATOR_SECOND_TASK_REGION))
+        self.action_click(self.waiter_until(self.LOCATOR_CLICK_ACTION))
+        self.waiter_new_url(pre_url)
         url = self.url()
-        print(url)
-        title_of_new_page = self.find("//title[@class='state-1']").text
+        title_of_new_page = self.waiter_until(self.LOCATOR_NEW_PAGE_TITLE).get_attribute("textContent")
         print(title_of_new_page)
-        new_region = self.find(self.LOCATOR_SECOND_TASK_REGION).text
-        print(new_region)
-        new_list_of_orgs = self.find_list(self.LOCATOR_SECOND_TASK_LIST_OF_ORGS)
-        print(new_list_of_orgs)
+        new_region = str(self.waiter_until(self.LOCATOR_SECOND_TASK_REGION).text)
+        new_list_of_orgs = self.waiter_until_list(self.LOCATOR_SECOND_TASK_LIST_OF_ORGS)[0].get_attribute("textContent")
         return region, list_of_orgs, url, title_of_new_page, new_region, new_list_of_orgs
 

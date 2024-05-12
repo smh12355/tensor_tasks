@@ -3,12 +3,31 @@ from selenium import webdriver
 import logging
 from datetime import datetime
 import os
+from selenium.webdriver.chrome.options import Options
 
 @pytest.fixture(scope='function')
 def browser():
     driver = webdriver.Chrome()
     yield driver
     driver.quit()
+
+@pytest.fixture(scope='session')
+def browser_for_download():
+    options = Options()
+    download_dir = os.path.dirname(__file__)
+    prefs = {
+        "download.default_directory": download_dir,
+        "download.prompt_for_download": False,
+        "download.directory_upgrade": True,
+        "safebrowsing.enabled": True
+    }
+    options.add_argument("--allow-running-insecure-content")  # Allow insecure content
+    options.add_argument("--unsafely-treat-insecure-origin-as-secure=https://sbis.ru/download?tab=plugin&innerTab=default")
+    options.add_experimental_option("prefs",prefs)
+    driver = webdriver.Chrome(options=options)
+    yield driver
+    driver.quit()
+
 
 @pytest.fixture(scope='session', autouse=True)
 def setup_logging():

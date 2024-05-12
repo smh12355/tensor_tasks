@@ -14,10 +14,12 @@
     *   **BasePage - обертка функционала selenium**
     *   **FirstTaskPage - тестирование для страницы с url = "https://sbis.ru/" = первый сценарий** 
     *   **SecondTaskPage - тестирование для страницы с url ="https://sbis.ru/contacts" = второй сценарий**
+    *   **ThirdTaskPage = отдельно для третьего сценария**
 * **каталог tests**
     * **conftest - фикстуры для webdriver и логгирования**
     * **test_FirstTaskPage - тесты для страницы FirstTaskPage**
     * **test_SecondTaskPage - тесты для страницы SecondTaskPage**
+    * **test_ThirdTaskPage - тесты для страницы ThirdTaskPage**
 * **каталог logs = логи выполнения тестов** 
 
 

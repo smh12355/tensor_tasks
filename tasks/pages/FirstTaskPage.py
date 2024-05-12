@@ -56,7 +56,9 @@ class FirstTaskPage(BasePage):
         link = self.waiter_until(self.LOCATOR_FIRST_TASK_LINK_SEARCH)
         another_link = link.get_attribute('href')
         self.action_click(self.waiter_until(self.LOCATOR_INVISIBILITY_ELEMENT_CLOSE))
+        pre_url = self.url()
         self.action_click(link)
+        self.waiter_new_url(pre_url)
         url = self.url()
         return [another_link, url]
     

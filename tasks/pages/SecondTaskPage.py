@@ -28,8 +28,6 @@ class SecondTaskPage(BasePage):
     def RegionSwitchCheck(self):
         self.get("https://sbis.ru/contacts")
         region = self.waiter_until(self.LOCATOR_SECOND_TASK_REGION).text
-        print(self.waiter_until(self.LOCATOR_NEW_PAGE_TITLE).text)
-        print(region)
         list_of_orgs = self.waiter_until_list(self.LOCATOR_SECOND_TASK_LIST_OF_ORGS)[0].get_attribute("textContent")
         pre_url = self.url()
         self.action_click(self.waiter_until(self.LOCATOR_SECOND_TASK_REGION))
@@ -37,7 +35,6 @@ class SecondTaskPage(BasePage):
         self.waiter_new_url(pre_url)
         url = self.url()
         title_of_new_page = self.waiter_until(self.LOCATOR_NEW_PAGE_TITLE).get_attribute("textContent")
-        print(title_of_new_page)
         new_region = str(self.waiter_until(self.LOCATOR_SECOND_TASK_REGION).text)
         new_list_of_orgs = self.waiter_until_list(self.LOCATOR_SECOND_TASK_LIST_OF_ORGS)[0].get_attribute("textContent")
         return region, list_of_orgs, url, title_of_new_page, new_region, new_list_of_orgs

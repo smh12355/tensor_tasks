@@ -4,10 +4,17 @@ import logging
 def test_first_task_first(browser, setup_logging):
     firsttaskpage = FirstTaskPage(browser)
     assert firsttaskpage.FindFirstPhrase(), setup_logging.error('The block "Strength is in people" is not in the html code')
-    # assert 0 == 1, setup_logging.error("some mistake here")
 
 def test_first_task_second(browser, setup_logging):
     firsttaskpage = FirstTaskPage(browser)
     output = firsttaskpage.TextLinkOpen()
-    # assert output[0] != None, setup_logging.error("link is invalid")
     assert output[0] == output[1], setup_logging.error("the link redirects to a third-party resource")
+
+def test_first_task_third(browser, setup_logging):
+    firsttaskpage = FirstTaskPage(browser)
+    output = firsttaskpage.SizeOfPictures()
+    height = output[0].get_attribute('height')
+    width = output[0].get_attribute('width')
+    for var in output[1:]:
+        assert var.get_attribute('height') == height, setup_logging.error("images have different heights")
+        assert var.get_attribute('width') == width, setup_logging.error("images have different widths")

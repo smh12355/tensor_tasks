@@ -28,9 +28,7 @@ class BasePage:
         return self.waiter.until(EC.presence_of_element_located(locator))
     
     def waiter_new_url(self, url):
-        # self.waiter.until(EC.url_changes(self.driver.current_url))
         self.waiter.until(EC.url_changes(url))
-
     
     def waiter_clicable(self, locator):
         return self.waiter.until(EC.element_to_be_clickable(locator))
@@ -40,3 +38,9 @@ class BasePage:
     
     def action_click(self, link):
         self.action.click(link).perform()
+
+    def switch_betwen_tables(self, index):
+        self.driver.switch_to.window(self.driver.window_handles[index])
+
+    def wait_new_tab_open(self,number):
+        self.waiter.until(EC.number_of_windows_to_be(number))

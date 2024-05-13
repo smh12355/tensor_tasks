@@ -18,3 +18,8 @@ def test_first_task_third(browser, setup_logging):
     for var in output[1:]:
         assert var.get_attribute('height') == height, setup_logging.error("images have different heights")
         assert var.get_attribute('width') == width, setup_logging.error("images have different widths")
+
+def test_Download_plagin(browser_for_download, setup_logging):
+    thirdtaskpage = FirstTaskPage(browser_for_download)
+    size, pre_size = thirdtaskpage.DownloadCheck()
+    assert str(size) == pre_size, setup_logging.error("different size")

@@ -19,14 +19,15 @@ class SecondTaskPage(BasePage):
         # "//title[@class='state-1']"
         "//title[@sid='h-6']"
     )
+    URL = "https://sbis.ru/contacts"
     def RegionCheck(self):
-        self.get("https://sbis.ru/contacts")
+        self.get(self.URL)
         region = self.waiter_until(self.LOCATOR_SECOND_TASK_REGION).text
         list_of_orgs = self.waiter_until_list(self.LOCATOR_SECOND_TASK_LIST_OF_ORGS)
         return region, list_of_orgs
     
     def RegionSwitchCheck(self):
-        self.get("https://sbis.ru/contacts")
+        self.get(self.URL)
         region = self.waiter_until(self.LOCATOR_SECOND_TASK_REGION).text
         list_of_orgs = self.waiter_until_list(self.LOCATOR_SECOND_TASK_LIST_OF_ORGS)[0].get_attribute("textContent")
         pre_url = self.url()

@@ -11,7 +11,7 @@ def browser():
     yield driver
     driver.quit()
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='function')
 def browser_for_download():
     options = Options()
     download_dir = os.path.dirname(__file__)

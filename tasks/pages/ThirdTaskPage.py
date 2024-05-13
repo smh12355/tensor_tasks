@@ -27,6 +27,7 @@ class ThirdTaskPage(BasePage):
         self.get("https://sbis.ru/")
         pre_url = self.url()
         self.action_click(self.waiter_until(self.LOCATOR_INVISIBILITY_ELEMENT_CLOSE))
+        time.sleep(1)
         self.action_click(self.waiter_until(self.LOCATOR_LINK_TO_DOWNLOADER))
         self.waiter_new_url(pre_url)
         self.action_click(self.waiter_until(self.LOCATOR_PLAGIN_BUTTON))
